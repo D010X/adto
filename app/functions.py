@@ -42,15 +42,8 @@ def retrivedata(api_url, user_id):
 
 
 def fetch_data(api_url, user_id=None):
-    # Define the request payload
-    payload = {}
-    
-    # Include user_id in payload if provided
-    if user_id is not None:
-        payload["user_id"] = user_id
-
-    # Make the POST request
-    response = requests.post(api_url, json=payload)
+# Make the POST request without user_id
+    response = requests.post(api_url)
 
     # Check if the request was successful
     if response.status_code == 200:
@@ -59,4 +52,4 @@ def fetch_data(api_url, user_id=None):
 
         return data
     else:
-        return Response("Failed to fetch data. Status code:", response.status_code)
+        return Response(f"Failed to fetch data. Status code: {response.status_code}")
