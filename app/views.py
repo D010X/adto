@@ -12,6 +12,8 @@ def getData(request):
     api_url = request.data.get('api')
     user_id = request.data.get('userid')
 
+    print(user_id)
+
     product_data = fetch_data(api_url, user_id)
 
     response = send_data(product_data, shop_url, access_token)
