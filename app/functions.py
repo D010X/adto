@@ -39,3 +39,24 @@ def retrivedata(api_url, user_id):
         return data
     else:
         return Response("Failed to fetch data. Status code:", response.status_code)
+
+
+def fetch_data(api_url, user_id=None):
+    # Define the request payload
+    payload = {}
+    
+    # Include user_id in payload if provided
+    if user_id is not None:
+        payload["user_id"] = user_id
+
+    # Make the POST request
+    response = requests.post(api_url, json=payload)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse the response JSON
+        data = response.json()
+
+        return data
+    else:
+        return Response("Failed to fetch data. Status code:", response.status_code)
