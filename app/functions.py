@@ -38,10 +38,10 @@ def retrivedata(api_url, user_id):
 
         return data
     else:
-        return Response("Failed to fetch data. Status code:", response.status_code)
+        return {"error": f"Failed to fetch data. Status code: {response.status_code}"}
 
 
-def fetch_data(api_url, user_id=None):
+def fetch_data(api_url):
 # Make the POST request without user_id
     response = requests.post(api_url)
 
@@ -52,4 +52,4 @@ def fetch_data(api_url, user_id=None):
 
         return data
     else:
-        return Response(f"Failed to fetch data. Status code: {response.status_code}")
+        return {"error": f"Failed to fetch data. Status code: {response.status_code}"}
