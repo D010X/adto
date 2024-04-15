@@ -1,3 +1,4 @@
+import json
 import requests
 from rest_framework.response import Response
 
@@ -20,3 +21,21 @@ def send_data(product_data, shop_url, access_token):
         return Response({"Message": "Product created successfully:", "Response": response_data['product']}, status=status_code)
     else:
         return Response({"Message": "Failed to create product:", "Response": response_data}, status=status_code)
+
+
+def retrivedata(api_url, user_id):
+
+    # Define the request payload
+    payload = {"user_id": user_id}
+
+    # Make the POST request
+    response = requests.post(api_url, json=payload)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse the response JSON
+        data = response.json()
+
+        return data
+    else:
+        return Response("Failed to fetch data. Status code:", response.status_code)
