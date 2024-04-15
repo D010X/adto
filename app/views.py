@@ -19,5 +19,4 @@ def getData(request):
     status_code = int(response.status_code)
 
     # Return the response with the correct status code
-    return Response(response.data, status=status_code
-                    )
+    return Response(response.data, status=status_code)
