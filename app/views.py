@@ -12,24 +12,22 @@ def getData(request):
     api_url = request.data.get('api')
     user_id = request.data.get('userid')
 
-    if user_id != "none": 
+    if user_id != "none":
         product_data = retrivedata(api_url, user_id)
 
         response = send_data(product_data, shop_url, access_token)
         # Ensure that the status_code is an integer
         status_code = int(response.status_code)
-    
-        # Return the response with the correct status code
-        return Response(response.data, status=status_code)
 
-    else: 
+        # Return the response with the correct status code
+        return Response({"Message": "1", "Response": response.data}, status=status_code)
+
+    else:
         product_data = fetch_data(api_url)
 
         response = send_data(product_data, shop_url, access_token)
         # Ensure that the status_code is an integer
         status_code = int(response.status_code)
-    
+
         # Return the response with the correct status code
-        return Response(response.data, status=status_code)
-        
-    return Response("Something wrong")
+        return Response({"Message": "2", "Response": response.data, "original": product_data}, status=status_code)
