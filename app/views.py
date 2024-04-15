@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.functions import send_data, retrivedata, fetch_data
+from app.functions import send_data, retrivedata, fetch_data, fetch_datana
 
 
 # Create your views here.
@@ -12,13 +12,24 @@ def getData(request):
     api_url = request.data.get('api')
     user_id = request.data.get('userid')
 
-    print(user_id)
+    if user_id != "none": 
+        product_data = fetch_data(api_url, user_id)
 
-    product_data = fetch_data(api_url, user_id)
+        response = send_data(product_data, shop_url, access_token)
+        # Ensure that the status_code is an integer
+        status_code = int(response.status_code)
+    
+        # Return the response with the correct status code
+        return Response(response.data, status=status_code)
 
-    response = send_data(product_data, shop_url, access_token)
-    # Ensure that the status_code is an integer
-    status_code = int(response.status_code)
+    else: 
+        product_data = fetch_datana(api_url)
 
-    # Return the response with the correct status code
-    return Response(response.data, status=status_code)
+        response = send_data(product_data, shop_url, access_token)
+        # Ensure that the status_code is an integer
+        status_code = int(response.status_code)
+    
+        # Return the response with the correct status code
+        return Response(response.data, status=status_code)
+        
+    return Response("Something wrong")
