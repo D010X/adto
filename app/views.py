@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app.functions import send_data, retrivedata
+from app.functions import send_data, retrivedata, fetch_data
 
 
 # Create your views here.
@@ -12,7 +12,7 @@ def getData(request):
     api_url = request.data.get('api')
     user_id = request.data.get('userid')
 
-    product_data = retrivedata(api_url, user_id)
+    product_data = fetch_data(api_url, user_id)
 
     response = send_data(product_data, shop_url, access_token)
     # Ensure that the status_code is an integer
